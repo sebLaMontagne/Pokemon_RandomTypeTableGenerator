@@ -1,6 +1,5 @@
 $(function(){
 
-    // add parameters to the form
     class Type{
         constructor(name){
             this.name = name
@@ -32,7 +31,19 @@ $(function(){
     types.push(new Type('ténèbres'));
     types.push(new Type('vol'));
 
-    $('#generator').click(function(e){
+    $('#immuneProportion').change(function(){ $('#immuneValue').val($('#immuneProportion')[0].value) })
+    $('#immuneValue').change(function(){ $('#immuneProportion').val($('#immuneValue')[0].value) })
+
+    $('#strongProportion').change(function(){ $('#strongValue').val($('#strongProportion')[0].value) })
+    $('#strongValue').change(function(){ $('#strongProportion').val($('#strongValue')[0].value) })
+    
+    $('#neutralProportion').change(function(){ $('#neutralValue').val($('#neutralProportion')[0].value) })
+    $('#neutralValue').change(function(){ $('#neutralProportion').val($('#neutralValue')[0].value) })
+    
+    $('#weakProportion').change(function(){ $('#weakValue').val($('#weakProportion')[0].value) })
+    $('#weakValue').change(function(){ $('#weakProportion').val($('#weakValue')[0].value) })
+
+    $('#generator').submit(function(e){
         e.preventDefault();
         $('#table').html('');
         
@@ -41,12 +52,19 @@ $(function(){
             $('#table').append('<div id="'+types[i].name+'"><img src="'+types[i].name+'.png"/>')
             for(let j = 0; j < types.length; j++)
             {
-                let rng = Math.round(Math.random()*18);
+                let immuneProportion = parseInt($('#immuneProportion')[0].value);
+                let strongProportion = parseInt($('#strongProportion')[0].value);
+                let neutralProportion = parseInt($('#neutralProportion')[0].value);
+                let weakProportion = parseInt($('#weakProportion')[0].value);
+
+                var sum = immuneProportion + strongProportion + neutralProportion + weakProportion -1
+                let rng = Math.round(Math.random()*sum);
+
                 let value;
-                if(rng > 15) value = 'strong';
-                if(rng < 16) value = 'weak';
-                if(rng < 13) value = 'neutral';
-                if(rng < 1) value = 'immune';
+                if(rng < immuneProportion) value = 'immune';
+                else if(rng >= immuneProportion && rng < (immuneProportion + strongProportion)) value = 'strong';
+                else if(rng >= (immuneProportion + strongProportion) && rng < (immuneProportion + strongProportion + neutralProportion)) value = 'neutral';
+                else value = 'weak';
          
                 $('#'+types[i].name).append('<img src="'+value+'.png"/>');
                 types[i].addOffensiveCaracteristic(types[j].name, value);

@@ -6,11 +6,31 @@
     </head>
     <body>
         <form id="generator">
-            <input type="submit" value="générer"/>
+            <div>
+                <label for="immuneProportion">Immune</label>
+                <input id="immuneProportion" type="range" min="0" max="100" value="50" />
+                <input id="immuneValue" type="number" min="0" max="100" value="50" />
+            </div>
+            <div>
+                <label for="strongProportion">Strong</label>
+                <input id="strongProportion" type="range" min="0" max="100" value="50" />
+                <input id="strongValue" type="number" min="0" max="100" value="50" />
+            </div>
+            <div>
+                <label for="neutralProportion">Neutral</label>
+                <input id="neutralProportion" type="range" min="0" max="100" value="50" />
+                <input id="neutralValue" type="number" min="0" max="100" value="50" />
+            </div>
+            <div>
+                <label for="weakProportion">Weak</label>
+                <input id="weakProportion" type="range" min="0" max="100" value="50" />
+                <input id="weakValue" type="number" min="0" max="100" value="50" />
+            </div>
+            <div><input type="submit" value="générer"/></div>
         </form>
-        <div id="table">
 
-        </div>
+        <div id="table"></div>
+        
         <script src="jquery.js"></script>
         <script src="typeTableGenerator"></script>
     </body>
